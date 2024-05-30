@@ -1,0 +1,21 @@
+MODULE main
+    VAR 
+        lock : boolean;
+        proc : {idle, entering, critical, exiting};
+    ASSIGN
+        init(proc) := idle;
+        next(proc) :=
+            case
+                proc = idle & lock = FALSE : entering;
+                proc = entering : critical;
+                proc = critical : {critical, exiting};
+                proc = exiting : idle;
+                TRUE : proc;
+            esac;
+        next(lock) :=
+            case
+                proc = idle & lock = FALSE : TRUE;
+                proc = exiting : FALSE;
+                TRUE : lock;
+            esac;
+    LTLSPEC G (proc = idle -> X F proc = idle);
