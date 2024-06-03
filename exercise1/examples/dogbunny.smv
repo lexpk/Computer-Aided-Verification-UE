@@ -1,0 +1,36 @@
+MODULE main
+VAR
+    bunny1: {boat, bone, carrot, house, flower, fountain, tree};
+    bunny2: {boat, bone, carrot, house, flower, fountain, tree};
+    dog: {boat, bone, carrot, house, flower, fountain, tree};
+    move: {b1, b2, d};
+    nobody_at_bone : boolean;
+    somebody_at_bone : boolean;
+    somebody_at_carrot : boolean;
+    somebody_at_flower : boolean;
+    somebody_at_tree : boolean;
+INIT bunny1 = house & bunny2 = boat & dog = tree
+
+TRANS move = b1 | next(bunny1) = bunny1
+TRANS move = b2 | next(bunny2) = bunny2
+TRANS move = d | next(dog) = dog
+
+TRANS move = b1 -> next(bunny1) != bunny1
+TRANS move = b2 -> next(bunny2) != bunny2
+TRANS move = d -> next(dog) != dog
+
+INVAR nobody_at_bone = (bunny1 != bone & bunny2 != bone & dog != bone)
+INVAR somebody_at_bone = (bunny1 = bone | bunny2 = bone | dog = bone)
+INVAR somebody_at_carrot = (bunny1 = carrot | bunny2 = carrot | dog = carrot)
+INVAR somebody_at_flower = (bunny1 = flower | bunny2 = flower | dog = flower)
+INVAR somebody_at_tree = (bunny1 = tree | bunny2 = tree | dog = tree)
+
+TRANS bunny1 = boat -> next(bunny1) in {house, boat}
+TRANS bunny2 = boat -> next(bunny2) in {house, boat}
+TRANS dog = boat -> next(dog) in {house, boat}
+TRANS bunny1 = boat & next(bunny1) = house -> somebody_at_tree
+TRANS bunny2 = boat & next(bunny2) = house -> somebody_at_tree
+TRANS dog = boat & next(dog) = house -> somebody_at_tree
+
+-- complete the transition relation
+LTLSPEC -- insert the ltl specification which results in a puzzle solution here

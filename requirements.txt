@@ -1,1 +1,2 @@
 ipykernel
+z3-python
