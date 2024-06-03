@@ -23,26 +23,26 @@ pole;
 
 The NuSMV specification in the file [`examples/hanoi.smv`](examples/hanoi.smv) describes this puzzle. Explain the encoding of the puzzle. In particular, describe which rule each of the TRANS and INVAR statements encode.
 
-Run NuSMV on the file `examples/hanoi.smv` and explain the output. In particular, explain how the counter example corresponds to a solution of the puzzle.
+Run NuSMV on the file [`examples/hanoi.smv`](examples/hanoi.smv) and explain the output. In particular, explain how the counter example corresponds to a solution of the puzzle.
 
 ### Exercise 1.2
 
-In this exercise, you will use NuSMV to analyze the instance of the dog bunny puzzle by Conrad Barski which you can find in the example directory.
+In this exercise, you will use NuSMV to analyze the instance of the dog bunny puzzle by Conrad Barski which you can find [in the example directory](examples/dogbunnypuzzle-annotated.pdf).
 
 You can move a dog and two rabbits across a graph of locations. Some edges can only be traversed in one direction, some are annotated with conditions that must be fulfilled in order to traverse the edge. The goal is to reach the goal state, in which both rabbits are located at carrot and the dog is located at bone. Note that the number of animals at one particular location is not restricted. A solution to the
 puzzle is a sequence of moves that reaches the goal state. Locations
 are annotated with their identifiers, and the edge between house and tree is annotated with a conjunction of conditions.
 
-The file `examples/dogbunny.smv` contains part of the encoding of the puzzle. Complete the encoding by adding the missing parts. Annotate your solution with explanations. Run NuSMV on the file `examples/dogbunny.smv` and include the output in your submission. Explain the output. In particular, explain how the counter example corresponds to a solution of the puzzle.
+The file [`examples/dogbunny.smv`](examples/dogbunny.smv) contains part of the encoding of the puzzle. Complete the encoding by adding the missing parts. Annotate your solution with explanations. Run NuSMV on the file [`examples/dogbunny.smv`](examples/dogbunny.smv) and include the output in your submission. Explain the output. In particular, explain how the counter example corresponds to a solution of the puzzle.
 
 ### Exercise 1.3
 
-In the file `examples/short.smv` you will find a simple specification encoding access control to a resource, i.e. if the resource is ready and there is a request, then the resource is busy in the following state.
+In the file [`examples/short.smv`](examples/short.smv) you will find a simple specification encoding access control to a resource, i.e. if the resource is ready and there is a request, then the resource is busy in the following state.
 
-Check out and run the jupyter notebook `short.ipynb`. It contains an encoding of the same specification in SMT. Explain why one specification is valid while the other results in a counter example. Answer the following questions and justify your answers:
+Check out and run the jupyter notebook [`short.ipynb`](short.ipynb). It contains an encoding of the same specification in SMT. Explain why one specification is valid while the other results in a counter example. Answer the following questions and justify your answers:
 - Is it sufficient to check if the specification holds up to $k=10$?
 - Would it be sufficient to only check $(k, l)$-loops in which $k = l$? (Hint: What is a _safety property_?)
 
 ### Exercise 1.4
 
-In the file `examples/ferryman.smv` you will find a specification encoding the classic [wolf, goat and cabbage problem](https://en.wikipedia.org/wiki/Wolf,_goat_and_cabbage_problem). In the jupyter notebook `ferryman.ipynb`, encode the same specification in SMT as was done in `short.ipynb`. Explain which parts of the SMT encoding correspond to which parts of the NuSMV specification. Check if the specification holds up to $k=10, l=10$. Explain the output. In particular, explain how the counter example corresponds to a solution of the puzzle.
+In the file [`examples/ferryman.smv`](examples/ferryman.smv) you will find a specification encoding the classic [wolf, goat and cabbage problem](https://en.wikipedia.org/wiki/Wolf,_goat_and_cabbage_problem). In the jupyter notebook [`ferryman.ipynb`](ferryman.ipynb), encode the same specification in SMT as was done in `short.ipynb`. Explain which parts of the SMT encoding correspond to which parts of the NuSMV specification. Check if the specification holds up to $k=10, l=10$. Explain the output. In particular, explain how the counter example corresponds to a solution of the puzzle.
