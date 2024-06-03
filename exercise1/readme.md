@@ -1,6 +1,6 @@
 Your task in this exercise will be to familiarize youself with the NuSMV model checker and z3 SMT Solver. In particular, you will examine a number of LTL specifications, first using NuSMV, and then by performing a translation to SMT and applying z3.
 
-To simplify our task of translating NuSMV to SMT later, we use a limited syntax. In particular, you should only use a single MODULE within it just VAR, INIT, TRANS, INVAR and LTLSPEC declarations.
+To simplify our task of translating NuSMV to SMT later, we use a limited syntax. In particular, in your NuSMV encodings please only use a single MODULE and within it only VAR, INIT, TRANS, INVAR and LTLSPEC declarations.
 
 ## Exercises
 
