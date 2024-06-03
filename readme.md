@@ -1,4 +1,4 @@
-This repository contains the code for the 2024 SS UE Computer Aided Verification at TU Wien. You will find 3 exercises in their respective folders. The overarching goal is the implementation of a bounded model checker for Linear Temporal Logic (LTL) specifications.
+This repository contains the code for the 2024 SS UE Computer Aided Verification at TU Wien. You will find 3 exercises in their respective folders. The overarching goal is the implementation of a bounded model checker for Linear Temporal Logic (LTL).
 
 ## 1. Setup
 
