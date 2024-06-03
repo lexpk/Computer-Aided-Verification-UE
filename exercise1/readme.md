@@ -21,7 +21,7 @@ the following simple rules:
 pole;
 - No disk may be placed on top of a smaller disk.
 
-The NuSMV specification in the file `examples/hanoi.smv` describes this puzzle. Explain the encoding of the puzzle. In particular, describe which rule each of the TRANS and INVAR statements encode.
+The NuSMV specification in the file [`examples/hanoi.smv`](examples/hanoi.smv) describes this puzzle. Explain the encoding of the puzzle. In particular, describe which rule each of the TRANS and INVAR statements encode.
 
 Run NuSMV on the file `examples/hanoi.smv` and explain the output. In particular, explain how the counter example corresponds to a solution of the puzzle.
 
@@ -33,7 +33,7 @@ You can move a dog and two rabbits across a graph of locations. Some edges can o
 puzzle is a sequence of moves that reaches the goal state. Locations
 are annotated with their identifiers, and the edge between house and tree is annotated with a conjunction of conditions.
 
-The file `examples/dogbunny.smv` contains part of the encoding of the puzzle. Complete the encoding by adding the missing parts. Annotate our solution with explanations. Run NuSMV on the file `examples/dogbunny.smv` and include the output in your submission. Explain the output. In particular, explain how the counter example corresponds to a solution of the puzzle.
+The file `examples/dogbunny.smv` contains part of the encoding of the puzzle. Complete the encoding by adding the missing parts. Annotate your solution with explanations. Run NuSMV on the file `examples/dogbunny.smv` and include the output in your submission. Explain the output. In particular, explain how the counter example corresponds to a solution of the puzzle.
 
 ### Exercise 1.3
 
