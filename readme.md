@@ -8,7 +8,7 @@ As your task will be implemented bounded and unbounded model checking, you will 
 
 ### 1.2. Setting up Python
 
-We will be using Python for the exercises. You can install Python from the [official website](https://www.python.org/downloads/). We recommend using either virtualenv or conda to manage your python environment. You can install the required packages by running:
+We will be using Python for the exercises. You can install Python from the [official website](https://www.python.org/downloads/). It is recommended using either virtualenv or conda to manage your python environment. You can install the required packages by running:
 
 ```bash
 pip install -r requirements.txt
