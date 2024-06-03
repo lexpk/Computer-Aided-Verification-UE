@@ -23,7 +23,7 @@ pole;
 
 The NuSMV specification in the file `examples/hanoi.smv` describes this puzzle. Explain the encoding of the puzzle. In particular, describe which rule each of the TRANS and INVAR statements encode.
 
-Run NuSMV on the file `examples/hanoi.smv` and include the output in your submission. Explain the output. In particular, explain how the counter example corresponds to a solution of the puzzle.
+Run NuSMV on the file `examples/hanoi.smv` and explain the output. In particular, explain how the counter example corresponds to a solution of the puzzle.
 
 ### Exercise 1.2
 
