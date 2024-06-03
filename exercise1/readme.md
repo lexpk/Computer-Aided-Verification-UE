@@ -20,6 +20,7 @@ the following simple rules:
 - Each move consists of taking the upper disk from one of the poles and placing it on top of another
 pole;
 - No disk may be placed on top of a smaller disk.
+
 The NuSMV specification in the file `examples/hanoi.smv` describes this puzzle. Explain the encoding of the puzzle. In particular, describe which rule each of the TRANS and INVAR statements encode.
 
 Run NuSMV on the file `examples/hanoi.smv` and include the output in your submission. Explain the output. In particular, explain how the counter example corresponds to a solution of the puzzle.
