@@ -8,7 +8,7 @@ As you will be implementing a model checker yourself, it will be useful to first
 
 ### 1.2. Setting up Python
 
-We will be using Python for the exercises. You can install Python from the [official website](https://www.python.org/downloads/). It is recommended using either virtualenv or conda to manage your python environment. You can install the required packages by running:
+We will be using [Python](https://www.python.org/downloads/) for the exercises. It is recommended using either virtualenv or conda to manage your python environment. You can install the required packages by running:
 
 ```bash
 pip install -r requirements.txt
