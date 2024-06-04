@@ -6,4 +6,4 @@ Implement fairness constraints as described in the [NuSMV user guide](https://nu
 
 ### Integer arithmetic
 
-Implement an integer datatype and arithmetic operations (+, -, *, /, mod). You can find an example of a simple counter that is incremented and reset in [`examples/counter.smv`](examples/counter.smv). An interesting application could be identifying the [Zune Bug](http://bit-player.org/2009/the-zune-bug), by encoding the C program into NuSMV and checking an appropriate LTL formula.
+Implement an integer datatype and arithmetic operations (+, -, *, /, mod). You can find an example of a simple counter that is incremented and reset in [`examples/counter.smv`](examples/counter.smv). An interesting application could be identifying the [Zune Bug](http://bit-player.org/2009/the-zune-bug) by encoding the C program into NuSMV and checking an appropriate LTL formula.
