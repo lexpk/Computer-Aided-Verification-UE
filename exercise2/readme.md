@@ -27,6 +27,6 @@ Your implementation should support at least the following subset of NuSMV:
     - Boolean combinations `!`, `&`, `|`, `->` between boolean variables, constants and comparisons (e.g. `x & (y | proc = idle)`)
     - Inclusion operator `in` between variables and sets (e.g. `proc in {idle, entering}`)
 
-All files from exercise 1 fall in this subset an have been included in the [`examples`](examples) folder. You can use these files to test your implementation.
+All files from exercise 1 fall into this subset. They have been included in the [`examples`](examples) folder. You can use these files to test your implementation.
 
 For your convenience, I have included a parser for the specified subset of NuSMV. Its usage is demonstrated in the [`parse_demo.ipynb`](parse_demo.ipynb) notebook. A possible first step could be extending the class definitions in [`logic.py`](logic.py) with methods that convert the given constraints into z3 constraints, given parameters $k, l$.
