@@ -1,17 +1,8 @@
 '''
-This file contains the syntax of expressions and formulas.
-Each connective has its own class, to similify your job you might want
-to redifine the connectives in terms of each other, for example
-
-    NotEquals(left, right) = Not(Equals(left, right))
-    
-is a valid definition, which is already used.
+This file contains definitions of expressions and formulas.
 '''
 
-
-from abc import ABC
-
-class Expression(ABC):
+class Expression:
     pass
 
 
@@ -25,24 +16,6 @@ class EnumExpression(Expression):
 
 class LTLFormula(Expression):
     pass
-
-
-class Enum(EnumExpression):
-    def type_check(elements):
-        for element in elements:
-            if not isinstance(element, EnumIdentifier) and \
-                not isinstance(element, EnumValue):
-                raise Exception("Enum elements must be identifiers")
-    
-    def __init__(self, elements):
-        Enum.type_check(elements)
-        self.elements = elements
-    
-    def __repr__(self) -> str:
-        return "{" + ", ".join(str(element) for element in self.elements) + "}"    
-
-    def evaluate(self, interpretation):
-        return self
 
 
 class EnumIdentifier(EnumExpression):
@@ -109,6 +82,41 @@ class BooleanValue(BooleanExpression):
         return True if self.name == "TRUE" else False
 
 
+class NextBool(BooleanExpression):
+    def type_check(expression):
+        if not isinstance(expression, BooleanExpression):
+            raise Exception("Next operator must have an expression")
+    
+    def __init__(self, expression):
+        NextBool.type_check(expression)
+        self.expression = expression
+
+    def __repr__(self) -> str:
+        return "next(" + str(self.expression) + ")"
+
+
+class NextEnum(EnumExpression):
+    def type_check(expression):
+        if not isinstance(expression, EnumExpression):
+            raise Exception("Next operator must have an expression")
+    
+    def __init__(self, expression):
+        NextEnum.type_check(expression)
+        self.expression = expression
+
+    def __repr__(self) -> str:
+        return "next(" + str(self.expression) + ")"
+
+
+def Next(expression):
+    if isinstance(expression, BooleanExpression):
+        return NextBool(expression)
+    elif isinstance(expression, EnumExpression):
+        return NextEnum(expression)
+    else:
+        raise Exception("Next operator must have a boolean or enum expression")
+
+
 class Not(BooleanExpression, LTLFormula):
     def type_check(expression):
         if not isinstance(expression, BooleanExpression) and not isinstance(expression, LTLFormula):
@@ -160,8 +168,22 @@ class Or(BooleanExpression, LTLFormula):
         return self.left.evaluate(interpretation) or self.right.evaluate(interpretation)
 
 
-def Implies(left, right):
-    return Or(Not(left), right)
+class Implies(BooleanExpression, LTLFormula):
+    def type_check(left, right):
+        if (not isinstance(left, BooleanExpression) and not isinstance(left, LTLFormula)) or \
+              (not isinstance(right, BooleanExpression) and not isinstance(right, LTLFormula)):
+            raise Exception("Implies expression must have two boolean expressions")
+    
+    def __init__(self, left, right):
+        Implies.type_check(left, right)
+        self.left = left
+        self.right = right
+
+    def __repr__(self) -> str:
+        return "(" + str(self.left) + " → " + str(self.right) + ")"
+
+    def evaluate(self, interpretation):
+        return not self.left.evaluate(interpretation) or self.right.evaluate(interpretation)
 
 
 class Eq(BooleanExpression):
@@ -188,7 +210,8 @@ def Neq(left, right):
 
 class In(BooleanExpression):
     def type_check(left, right):
-        if not isinstance(left, EnumExpression) or not isinstance(right, EnumExpression):
+        if not isinstance(left, EnumExpression) or not isinstance(right, list) \
+            or not all(isinstance(element, EnumExpression) for element in right):
             raise Exception("In expression must have enum arguments") 
     
     def __init__(self, left, right):
@@ -200,49 +223,7 @@ class In(BooleanExpression):
         return "(" + str(self.left) + " ∈ " + str(self.right) + ")"
 
     def evaluate(self, interpretation):
-        return self.left.evaluate(interpretation) in self.right.evaluate(interpretation)
-
-
-class EnumCase(EnumExpression):
-    def type_check(conditions, values):
-        if not all(isinstance(condition, BooleanExpression) for condition in conditions):
-            raise Exception("Enum case conditions must be boolean expressions")
-        if not all(isinstance(value, EnumExpression) for value in values):
-            raise Exception("Enum case values must be enum expressions")
-
-    def __init__(self, conditions, values):
-        EnumCase.type_check(conditions, values)
-        self.conditions = conditions
-        self.values = values
-
-    def __repr__(self) -> str:
-        return "case " + " | ".join(str(condition) + " -> " + str(value) for condition, value in zip(self.conditions, self.values)) + " esac"
-
-    def evaluate(self, interpretation):
-        for condition, value in zip(self.conditions, self.values):
-            if condition.evaluate(interpretation):
-                return value.evaluate(interpretation)
-
-
-class BooleanCase(EnumExpression):
-    def type_check(conditions, values):
-        if not all(isinstance(condition, BooleanExpression) for condition in conditions):
-            raise Exception("Boolean case conditions must be boolean expressions")
-        if not all(isinstance(value, BooleanExpression) for value in values):
-            raise Exception("Boolean case values must be boolean expressions")
-
-    def __init__(self, conditions, values):
-        BooleanCase.type_check(conditions, values)
-        self.conditions = conditions
-        self.values = values
-
-    def __repr__(self) -> str:
-        return "case " + " | ".join(str(condition) + " -> " + str(value) for condition, value in zip(self.conditions, self.values)) + " esac"
-
-    def evaluate(self, interpretation):
-        for condition, value in zip(self.conditions, self.values):
-            if condition.evaluate(interpretation):
-                return value.evaluate(interpretation)
+        return self.left.evaluate(interpretation) in [self.right.evaluate(element) for element in self.right]
 
 
 class G(LTLFormula):
@@ -257,6 +238,7 @@ class G(LTLFormula):
     def __repr__(self) -> str:
         return "G " + str(self.formula)
 
+
 class F(LTLFormula):
     def type_check(formula):
         if not isinstance(formula, LTLFormula) and not isinstance(formula, BooleanExpression):
@@ -269,6 +251,7 @@ class F(LTLFormula):
     def __repr__(self) -> str:
         return "F " + str(self.formula)
 
+
 class X(LTLFormula):
     def type_check(formula):
         if not isinstance(formula, LTLFormula) and not isinstance(formula, BooleanExpression):
@@ -280,6 +263,7 @@ class X(LTLFormula):
 
     def __repr__(self) -> str:
         return "X" + str(self.formula)
+
 
 class U(LTLFormula):
     def type_check(left, right):
@@ -295,19 +279,3 @@ class U(LTLFormula):
 
     def __repr__(self) -> str:
         return "(" + str(self.left) + " U " + str(self.right) + ")"
-
-
-class R(LTLFormula):
-    def type_check(left, right):
-        if not isinstance(left, LTLFormula) and not isinstance(left, BooleanExpression):
-            raise Exception("R operator left operand must be a boolean expression or LTL formula")
-        if not isinstance(right, LTLFormula) and not isinstance(right, BooleanExpression):
-            raise Exception("R operator right operand must be a boolean expression or LTL formula")
-    
-    def __init__(self, left, right):
-        R.type_check(left, right)
-        self.left = left
-        self.right = right
-
-    def __repr__(self) -> str:
-        return "(" + str(self.left) + " R " + str(self.right) + ")"

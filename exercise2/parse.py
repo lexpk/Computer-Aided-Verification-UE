@@ -13,9 +13,21 @@ def parse(text):
     tree = parser.parse(text)
     declaration_parser = _DeclarationParser()
     declaration_parser.visit(tree)
-    constraint_parser = _ConstraintParser(declaration_parser.boolean_variables, declaration_parser.enum_variables, declaration_parser.enum_values)
+    constraint_parser = _ConstraintParser(
+        declaration_parser.boolean_variables,
+        declaration_parser.enum_variables,
+        declaration_parser.enum_values
+    )
     constraint_parser.transform(tree)
-    return constraint_parser.invars, constraint_parser.inits, constraint_parser.nexts, constraint_parser.ltls
+    return {
+        "boolean_variables" : declaration_parser.boolean_variables,
+        "enum_variables" : declaration_parser.enum_variables,
+        "enum_values" : declaration_parser.enum_values, 
+        "invar" : constraint_parser.invar,
+        "init" : constraint_parser.init,
+        "trans" : constraint_parser.trans,
+        "ltl" : constraint_parser.ltls
+    }
 
 
 class _DeclarationParser(Visitor):
@@ -31,25 +43,38 @@ class _DeclarationParser(Visitor):
             self.enum_variables.append(tree.children[0].value)
             self.enum_values.append([token.value for token in tree.children[1].children[0].children])
 
+    def init_constraint(self, tree):
+        if hasattr(tree.children[0], 'contains_next'):
+            raise Exception("INIT constraint cannot contain next operator")
+
+    def invar_constraint(self, tree):
+        if hasattr(tree.children[0], 'contains_next'):
+            raise Exception("INVAR constraint cannot contain next operator")
+
+    def expr(self, tree):
+        if len(tree.children) == 2 and tree.children[0].type == 'NEXT':
+            tree.contains_next = None
+        elif any(hasattr(child, 'contains_next') for child in tree.children):
+                tree.contains_next = None
 
 class _ConstraintParser(Transformer):
     def __init__(self, boolean_variables, enum_variables, enum_values):
         self.boolean_variables = boolean_variables
         self.enum_variables = enum_variables
         self.enum_values = list(chain(*enum_values))
-        self.invars = []
-        self.inits = []
-        self.nexts = []
+        self.invar = []
+        self.init = []
+        self.trans = []
         self.ltls = []
     
-    def invar(self, children):
-        self.invars.append((children[0], children[1]))  
+    def invar_constraint(self, children):
+        self.invar.append((children[0]))  
         
-    def init(self, children):
-        self.inits.append((children[0], children[1]))
+    def init_constraint(self, children):
+        self.init.append((children[0]))
     
-    def next(self, children):
-        self.nexts.append((children[0], children[1]))
+    def trans_constraint(self, children):
+        self.trans.append((children[0]))
     
     def expr(self, children):
         return children[0]
@@ -65,14 +90,18 @@ class _ConstraintParser(Transformer):
             return EnumValue(data)
 
     def enum(self, children):
-        return Enum(children)
+        return [children]
 
-    def basic_expr(self, children):
+    def expr(self, children):
         match len(children):
             case 1:
                 return children[0]
             case 2:
-                return Not(children[1])
+                match children[0].type:
+                    case 'NOT':
+                        return Not(children[1])
+                    case 'NEXT':
+                        return Next(children[1])
             case 3:
                 match children[1].type:
                     case 'AND':
@@ -88,6 +117,9 @@ class _ConstraintParser(Transformer):
                     case 'IN':
                         return In(children[0], children[2])
 
+    def enum_expr(self, children):
+        return children
+
     def case_body(self, children):
         if len(children) == 3:
             return ([children[0]] + children[2][0], [children[1]] + children[2][1], children[2][2])
@@ -95,14 +127,7 @@ class _ConstraintParser(Transformer):
             return ([children[0]], [children[1]], \
                 "Boolean" if isinstance(children[1], BooleanExpression) else "Enum")
 
-    def case_expr(self, children):
-        match children[0][2]:
-            case "Boolean":
-                return BooleanCase(children[0][0], children[0][1])
-            case "Enum":
-                return EnumCase(children[0][0], children[0][1])
-
-    def ltl_formula(self, children):
+    def ltlspec(self, children):
         self.ltls.append(children[0])
 
     def ltl(self, children):
@@ -117,7 +142,7 @@ class _ConstraintParser(Transformer):
                         return F(children[1])
                     case 'X':
                         return X(children[1])
-                    case 'Not':
+                    case 'NOT':
                         return Not(children[1])
             case 3:
                 match children[1].type:
