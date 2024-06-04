@@ -42,6 +42,7 @@ The file [`examples/dogbunny.smv`](examples/dogbunny.smv) contains part of the e
 In the file [`examples/short.smv`](examples/short.smv) you will find a simple specification encoding access control to a resource, i.e. if the resource is ready and there is a request, then the resource is busy in the following state.
 
 Check out and run the jupyter notebook [`short.ipynb`](short.ipynb). It contains an encoding of the same specification in SMT. Explain why one specification is valid while the other results in a counter example. Answer the following questions and justify your answers:
+- Why is a counter-example found for one specification but not the other, i.e. what is the difference between them?
 - Is it sufficient to check if the specification holds up to $k=10$?
 - Would it be sufficient to only check $(k, l)$-loops in which $k = l$? (Hint: What is a _safety property_?)
 
