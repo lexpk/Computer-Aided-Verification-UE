@@ -4,7 +4,7 @@ This repository contains the code for the 2024 SS UE Computer Aided Verification
 
 ### 1.1. Install NuSMV
 
-As your task will be implemented bounded and unbounded model checking, you will familiarize yourself with an existing model checker in exercise 1. We will use NuSMV, a symbolic model checker for finite state systems. You can download it from the [NuSMV website](http://nusmv.fbk.eu/).
+As you will be implementing a model checker yourself, it will be useful to first familiarize yourself with an existing one. We will use NuSMV, a symbolic model checker for finite state systems. You can download it from the [NuSMV website](http://nusmv.fbk.eu/).
 
 ### 1.2. Setting up Python
 
