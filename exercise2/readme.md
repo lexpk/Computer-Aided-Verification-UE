@@ -5,7 +5,7 @@ In the second exercise, you will be implementing your own bounded model checker.
 Implement a bounded model checker for LTL formulas. Your submission may contain any number of python files, but should contain at least one jupyter-notebook named `demo.ipynb` that demonstrates the usage of your implementation. Your implementation should be able to read a NuSMV-like input file and check if the specification holds for all $(k, l)$-loops up to a given bound $k$.
 
 Your implementation should support at least the following subset of NuSMV:
-- You don't need to implement modules and can assume that there is only one `MODULE main`.
+- You may assume that there is only one `MODULE main`.
 - Implement boolean variable declarations, e.g. `VAR x: boolean; y: boolean;`, and enum variable declarations, e.g. `VAR proc: {idle, entering, critical, exiting};`.
 - You should implement `INIT`, `TRANS` and `INVAR` declarations, i.e.
     - `INIT proc = idle`
