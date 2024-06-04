@@ -44,7 +44,7 @@ In the file [`examples/short.smv`](examples/short.smv) you will find a simple sp
 Check out and run the jupyter notebook [`short.ipynb`](short.ipynb). It contains an encoding of the same specification in SMT. Explain why one specification is valid while the other results in a counter example. Answer the following questions and justify your answers:
 - Why is a counter-example found for one specification but not the other, i.e. what is the difference between them?
 - Is it sufficient to check if the specification holds up to $k=10$?
-- Would it be sufficient to only check $(k, l)$-loops in which $l=k$, what about $l=0$? (Hint: What is a _safety property_?)
+- Would it be sufficient to only check $(k, l)$-loops in which $l=k$, what about $l=0$? (Hint: What is a _safety/liveness property_?)
 
 ### Exercise 1.4
 
