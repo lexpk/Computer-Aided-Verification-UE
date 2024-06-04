@@ -2,6 +2,8 @@ Your task in this exercise will be to familiarize youself with the NuSMV model c
 
 To simplify our task of translating NuSMV to SMT later, we use a limited syntax. In particular, in your NuSMV encodings please only use a single MODULE and within it only VAR, INIT, TRANS, INVAR and LTLSPEC declarations.
 
+The [Tutorial](https://nusmv.fbk.eu/tutorial/v26/tutorial.pdf) and [User Manual](https://nusmv.fbk.eu/userman/v26/nusmv.pdf) provide a good overview over the functionality of NuSMV.
+
 ## Exercises
 
 When asked for explanations, please either add them as comments to the NuSMV output files or include them in a separate text or pdf file. Your submission for this exercise should contain the following files:
