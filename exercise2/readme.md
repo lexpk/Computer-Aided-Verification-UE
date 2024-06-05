@@ -21,7 +21,7 @@ Your implementation should support at least the following subset of NuSMV:
     - `->` (implies)
 - Support the following types of expressions:
     - Variables (anything declared with `VAR`, e.g. `x`, `y`, `proc`)
-    - Constants (TRUE, FALSE, anything that is part of a finite domain)
+    - Constants (TRUE, FALSE, any constant that is part of a enum datatype, e.g. `idle`, `proc`)
     - Comparison operators `=`, `!=` between variables and constants (e.g. `x = y`, `proc != idle`)
     - Boolean combinations `!`, `&`, `|`, `->` between boolean variables, constants and comparisons (e.g. `x & (y | proc = idle)`)
     - Inclusion operator `in` between variables and sets (e.g. `proc in {idle, entering}`)
