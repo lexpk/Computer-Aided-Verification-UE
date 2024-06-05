@@ -1,4 +1,4 @@
-For exercise 3 you are to extend your implementation from exercise 2 to support additional features. Here are some ideas for extensions, but you are free to come up with your own:
+For exercise 3 you are to extend your implementation from exercise 2 to support additional features. Include the presentation of your additional features in the notebook `demo.ipynb` or an additional notebook. Here are some ideas for extensions, but you are free to come up with your own:
 
 ### Until and Release Operators
 
