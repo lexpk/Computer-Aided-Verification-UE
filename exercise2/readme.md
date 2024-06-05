@@ -2,7 +2,7 @@ In the second exercise, you will be implementing your own bounded model checker.
 
 ## Exercise 2
 
-Implement a bounded model checker for LTL formulas. Your submission may contain any number of python files, but should contain at least one jupyter-notebook named `demo.ipynb` that demonstrates the usage of your implementation. Your implementation should be able to read a NuSMV-like input file and check if the specification holds for all $(k, l)$-loops up to a given bound $k$.
+Implement a bounded model checker for LTL formulas. Your submission may contain any files, but should contain at least one jupyter-notebook named `demo.ipynb` that demonstrates the usage of your implementation. Your implementation should be able to read a NuSMV-like input file and check if the specification holds for all $(k, l)$-loops up to a given bound $k$. Additionally, the `examples` directory does not contain an instance of the Until operator `U`. Find or come up with an example specification using the Until operator and demonstrate your bounded model checker on it.
 
 Your implementation should support at least the following subset of NuSMV:
 - You may assume that there is only one `MODULE main`.
