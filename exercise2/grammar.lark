@@ -42,11 +42,11 @@ ltl :
     | ltl OR ltl
     | ltl IMPLIES ltl
     | ltl AND ltl
-    | ltl U ltl
-    | ltl R ltl
-    | G ltl
-    | F ltl
-    | X ltl
+    | ltl " " U " " ltl | "(" ltl ")" U " " ltl | ltl " " U "(" ltl ")" | "(" ltl ")" U "(" ltl ")"
+    | ltl " " R " " ltl | "(" ltl ")" R " " ltl | ltl " " R "(" ltl ")" | "(" ltl ")" R "(" ltl ")"
+    | G " " ltl | G "(" ltl ")"
+    | F " " ltl | F "(" ltl ")"
+    | X " " ltl | X "(" ltl ")"
     | NOT ltl
 
 enum : "{" IDENTIFIER ("," IDENTIFIER)* "}"
