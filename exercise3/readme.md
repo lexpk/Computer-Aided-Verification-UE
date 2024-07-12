@@ -4,7 +4,7 @@ For exercise 3 you are to extend your implementation from exercise 2 to support 
 
 Implement the Until and Release operators. The file [`examples/ferrymanuntil.smv`](examples/ferrymanuntil.smv) contains an encoding of the ferryman problem using the Until operator. Come up with an example using the Release operator. Note that [NuSMV](https://nusmv.fbk.eu/userman/v26/nusmv.pdf) uses the symbol `V` to denote the release operator.
 
-### Past Operators
+### Past Operators (advanced, counts as 2)
 
 Implement (at least) the past operators `Y` (previous), `H` (historrically) and `O` (once).  Come up with examples using past operators.
 
